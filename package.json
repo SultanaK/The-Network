@@ -1,0 +1,33 @@
+{
+  "name": "the-network",
+  "version": "1.0.0",
+  "description": "A social network for developers",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SultanaK/The-Network.git"
+  },
+  "author": "Manuel Padilla",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SultanaK/The-Network/issues"
+  },
+  "homepage": "https://github.com/SultanaK/The-Network#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.12",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "validator": "^9.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
