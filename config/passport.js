@@ -1,3 +1,4 @@
+// passport verifies/validates token & extracts user info from it
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const mongoose = require("mongoose");
@@ -14,11 +15,11 @@ module.exports = passport => {
       User.findById(jwt_payload.id)
         .then(user => {
           if (user) {
-            return done(null, user);
+            return done(null, user); // user found
           }
-          return done(null, false);
+          return done(null, false); // no user found
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err)); // error
     })
   );
 };

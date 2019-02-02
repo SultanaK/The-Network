@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const gravatar = require("gravatar");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs"); // bcryptjs hashes the password
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
@@ -89,7 +89,8 @@ router.post("/login", (req, res) => {
       if (isMatch) {
         // User Matched
 
-        const payload = { id: user.id, name: user.name, avatar: user.avatar }; // Create JWt Payload
+        // Create JWt Payload
+        const payload = { id: user.id, name: user.name, avatar: user.avatar };
 
         // Sign Token
         jwt.sign(
@@ -104,7 +105,8 @@ router.post("/login", (req, res) => {
           }
         );
       } else {
-        return res.status(400).json({ password: "Password incorrect" });
+        errors.password = "Password incorrect";
+        return res.status(400).json(errors);
       }
     });
   });
@@ -117,7 +119,7 @@ router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    // reformat from res.json(req.user), to not send password in Postman
+    // reformat from res.json(req.user) to not send password in Postman
     res.json({
       id: req.user.id,
       name: req.user.name,
