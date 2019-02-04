@@ -37,8 +37,8 @@ InputGroup.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
   icon: PropTypes.string,
-  type: PropTypes.string.isRequired,
   error: PropTypes.string,
+  type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 };
 

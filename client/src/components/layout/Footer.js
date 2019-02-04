@@ -1,10 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 export default () => {
   return (
-    <footer className="bg-light text-black mt-5 p-4 text-center" >
-    <p>Copyright &copy; { new Date().getFullYear() } The Network</p>
-  </footer>
-    
-  )
-}
+    <footer className="bg-primary text-white mt-5 p-4 text-center">
+      Copyright &copy; {new Date().getFullYear()} The Network
+    </footer>
+  );
+};
