@@ -217,7 +217,7 @@ router.post(
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       const newEdu = {
-        school: req.body.schoo,
+        school: req.body.school,
         degree: req.body.degree,
         fieldofstudy: req.body.fieldofstudy,
         from: req.body.from,
