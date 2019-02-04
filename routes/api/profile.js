@@ -5,6 +5,7 @@ const passport = require("passport");
 
 // load validation
 const validateProfileInput = require("../../validation/profile");
+const validateExperienceInput = require("../../validation/experience");
 
 // load Profile Model
 const Profile = require("../../models/Profile");
@@ -55,9 +56,7 @@ router.get("/all", (req, res) => {
 
       res.json(profiles);
     })
-    .catch(err => {
-      res.status(404).json({ profile: "There are no profiles" });
-    });
+    .catch(err => res.status(404).json({ profile: "There are no profiles" }));
 });
 
 // @route  GET api/profile/handle/:handle - backend API route
@@ -74,6 +73,7 @@ router.get("/handle/:handle", (req, res) => {
         errors.noprofile = "There is no profile for this user";
         res.status(404).json(errors);
       }
+
       res.json(profile);
     })
     .catch(err => res.status(404).json(err));
@@ -141,7 +141,7 @@ router.post(
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {
-        // update
+        // Update
         Profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileFields },
@@ -161,6 +161,40 @@ router.post(
           new Profile(profileFields).save().then(profile => res.json(profile));
         });
       }
+    });
+  }
+);
+
+// @route  POST api/profile/experience
+// @desc   Add experience to profile
+// @access Private
+router.post(
+  "/experience",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateExperienceInput(req.body);
+
+    // check validation
+    if (!isValid) {
+      // return andy errors wit 400 status
+      return res.status(400).json(errors);
+    }
+
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      const newExp = {
+        title: req.body.title,
+        company: req.body.company,
+        location: req.body.location,
+        from: req.body.from,
+        to: req.body.to,
+        current: req.body.current,
+        descripion: req.body.description
+      };
+
+      // Add to experience array
+      profile.experience.unshift(newExp);
+
+      profile.save().then(profile => res.json(profile));
     });
   }
 );
